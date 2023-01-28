@@ -1,0 +1,126 @@
+<help >
+Type "help more" for entire user manual,
+for individual function, type in:
+"help help"		---> To see the function of 'help' command;
+"help shell"		---> To see information of my shell;
+"help cd"               ---> To see the function of 'cd' command;
+"help dir"              ---> To see the function of 'dir' command;
+"help pause"            ---> To see the function of 'pause' command;
+"help environ"          ---> To see the function of 'environ' command;
+"help clr"              ---> To see the function of 'clr' command;
+"help echo"             ---> To see the function of 'echo' command;
+"help quit"             ---> To see the function of 'quit' command;
+"help redirection"	---> To learn about the i/o redirection;
+"help background"	---> To learn about the background mode; 
+"help batchfile"        ---> To see how the shell execute a batchfile;
+#
+
+<help shell>
+The Shell or Command Line Interpreter is the fundamental user interface to an Operating System.
+myshell supports the following commands:
+    cd      clr      dir     environ
+    echo    help    pause    quit 
+#   
+
+<help cd>
+Format: cd [directory]
+-- change the current default directory to [directory].
+e.g. cd /home
+This command also change the PWD environment variable.
+If the [directory] argument is not present, report the current directory.
+If the directory does not exist, a "Path Error" wil be reported in the screen.
+Moreover, you can use a directory path writen in a file as:
+e.g. cd <test.txt
+The file can be given by the full path as:
+cd </home/username/test.txt
+#
+
+<help clr> 
+Format: clr 
+-- clear the screen, no arguments is needed.
+#
+
+<help dir>
+Format: dir [directory]
+-- list the contents of directory [directory]
+e.g. dir /home
+This command is different from "cd", it change neither the current default directory nor the PWD environment variable(use the command "pwd" to see it).
+As to the directory path, type "help path" to get more information.
+If the [directory] argument is not present, list the contents of the current directory. If the directory does not exist, a "Path Error" wil be reported in the screen.
+Moreover, you can use a directory path writen in a file as:
+e.g. dir <a.txt
+And you can list the contents into a file or more than one file as:
+e.g. dir >b.txt or dir >b.txt >c.txt
+The token ">" can be replaced by ">>", type "help redirection" to see the difference of ">" and ">>".
+You can use both input redirection and output redirection as:
+e.g. dir <a.txt >b.txt >c.txt
+The file can be given by the full path as:
+dir </home/username/a.txt
+#
+
+<help environ>
+Format: environ
+-- list all the environment strings in screen or into one file or more than one file as:
+e.g. envieron or environ >b.txt or environ >b.txt >c.txt
+The token ">" can be replaced by ">>", type "help redirection" to see the difference of ">" and ">>".
+The file can be given by the full path as:
+/home/a.txt
+#
+
+<help echo>
+Format: echo [comment]
+-- display [comment] on the display or output files followed by a new line. And multiple spaces/tabs will be reduced to a single space.
+e.g. echo hello world
+The words "hello world" will display in the screen.
+[comment] can be multiple words either typed from keyboard or read from one or more input files.
+e.g. echo <a.txt or echo <a.txt <b.txt
+And you can display or output the contents into one file or more than one file:
+e.g. echo hello world >c.txt or echo hello world >c.txt >d.txt
+The token ">" can be replaced by ">>", type "help redirection" to see the difference of ">" and ">>".
+The file can be given by the full path as:
+echo </home/a.txt >/home/b.txt
+#
+
+<help pause>
+Format: pause
+-> display "Press Enter to continue..." and pause operation of the shell until the 'Enter' key is pressed (ignore any intervening non-'Enter' input).
+#
+
+<help quit>
+Format: quit  
+-> Exit myshell, no argument is needed.
+#
+
+
+This shell is able to take its commands input from a batchfile.
+i.e. if the shell is invoked with a command line argument:
+e.g.   myshell test.bat
+then the batchfile [test.bat] is assumed to contain a set of command lines for the shell to process.
+When the end of file is reached, the shell should exit.
+Obviously, if the shell is invoked without a command line argument,
+it solicits input from the user via a prompt on the display.
+
+## Redirection
+myshell supports i/o-redirection on either or both stdin(standard input) and/or stdout(standard output). i.e. the command line:
+e.g.   programname arg1 arg2 < inputfile > outputfile
+this will execute the program programname with arguments arg1 and arg2,
+the stdin FILE stream replaced by inputfile and the stdout FILE stream replaced by outputfile. 
+The file can be given by the full path as:
+    /home/username/test.txt
+Input redirection --> i.e. stdin redirection --> is possible for the internal commands: cd, dir, echo.
+Output redirection --> i.e. stdout redirection --> is possible for the internal commands: pwd, dir, environ, echo, help.
+   => when the redirection token is < then the inputfile is opened if it exists, or a "Path Error" wil be reported in the screen.
+     e.g.     tr 'a' 'A' <  test.txt 
+   => when the redirection token is > then the outputfile is created if it does not exist and truncated if it does.
+    e.g.      ls  >  test.txt
+   => when the redirection token is >> then outputfile is created if it does not exist and appended to if it does.
+     e.g.     environ  >>  test.txt
+If the file cannot opened due to read permission or write permission, an "Open Error" wil be reported in the screen.
+
+
+## Background execution
+Normally, when a command is execution, you have to wait for the completion and type another command. Especially, when the comand is executed from a batchfile, much time is wasted in waiting. Background execution allows you not to wait for the execution. An ampersand (&) at the end of the command line indicates that the shell should execute the command in background. 
+myshell supports background execution of programs. An ampersand (&) at the end of the command line indicates that the shell should return to the command line prompt immediately after launching that program. 
+
+
+
